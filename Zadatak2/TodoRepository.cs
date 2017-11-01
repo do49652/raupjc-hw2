@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zadatak3;
+using GenericListLibrary;
 
 namespace Zadatak2
 {
@@ -29,7 +29,8 @@ namespace Zadatak2
         public TodoItem Add(TodoItem todoItem)
         {
             if (_inMemoryTodoDatabase.Contains(todoItem))
-                throw new DuplicateTodoItemException("duplicate id: " + _inMemoryTodoDatabase.FirstOrDefault(s => s.Equals(todoItem)));
+                throw new DuplicateTodoItemException("duplicate id: " +
+                                                     _inMemoryTodoDatabase.FirstOrDefault(s => s.Equals(todoItem)));
 
             _inMemoryTodoDatabase.Add(todoItem);
             return todoItem;
