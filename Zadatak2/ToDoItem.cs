@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Zadatak2
 {
@@ -35,7 +34,7 @@ namespace Zadatak2
 
         public override int GetHashCode()
         {
-            return 2108858624 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            return Id.GetHashCode();
         }
     }
 }
