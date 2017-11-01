@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Zadatak1
 {
@@ -18,23 +18,17 @@ namespace Zadatak1
 
         public string Name { get; set; }
         public string Jmbag { get; set; }
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }
 
         public override bool Equals(object obj)
         {
             return obj is Student student &&
-                   Name == student.Name &&
-                   Jmbag == student.Jmbag &&
-                   Gender == student.Gender;
+                   Jmbag == student.Jmbag;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 430495180;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Jmbag);
-            hashCode = hashCode * -1521134295 + Gender.GetHashCode();
-            return hashCode;
+            return Jmbag.GetHashCode();
         }
 
         public static bool operator ==(Student s1, Student s2)
@@ -44,7 +38,14 @@ namespace Zadatak1
 
         public static bool operator !=(Student s1, Student s2)
         {
-            return s1 != null && !s1.Equals(s2);
+            try
+            {
+                return !s1.Equals(s2);
+            }
+            catch (NullReferenceException e)
+            {
+                return false;
+            }
         }
     }
 }
