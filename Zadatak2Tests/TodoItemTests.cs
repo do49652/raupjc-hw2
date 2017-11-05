@@ -6,13 +6,21 @@ namespace Zadatak2.Tests
     public class TodoItemTests
     {
         [TestMethod]
+        public void TodoItem()
+        {
+            var t = new TodoItem("test");
+            Assert.AreEqual(t.Text,"test");
+            Assert.IsFalse(t.IsCompleted);
+        }
+
+        [TestMethod]
         public void MarkAsCompletedTest()
         {
             var t = new TodoItem("test");
-            Assert.AreEqual(t.IsCompleted, false);
-            Assert.AreEqual(t.MarkAsCompleted(), true);
-            Assert.AreEqual(t.IsCompleted, true);
-            Assert.AreEqual(t.MarkAsCompleted(), false);
+            Assert.IsFalse(t.IsCompleted);
+            Assert.IsTrue(t.MarkAsCompleted());
+            Assert.IsTrue(t.IsCompleted);
+            Assert.IsFalse(t.MarkAsCompleted());
         }
 
         [TestMethod]
@@ -20,7 +28,7 @@ namespace Zadatak2.Tests
         {
             var t1 = new TodoItem("test");
             var t2 = new TodoItem("test");
-            Assert.AreEqual(t1.Equals(t2), false);
+            Assert.AreNotEqual(t1, t2);
         }
 
         [TestMethod]

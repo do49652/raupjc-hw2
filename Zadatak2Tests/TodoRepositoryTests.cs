@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using GenericListLibrary;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Zadatak2.Tests
 {
@@ -6,15 +7,32 @@ namespace Zadatak2.Tests
     public class TodoRepositoryTests
     {
         [TestMethod]
+        public void TodoRepository()
+        {
+            var repo = new TodoRepository(null);
+            Assert.IsNotNull(repo.GetAll());
+            Assert.AreEqual(repo.GetAll().Count, 0);
+
+            GenericList<TodoItem> list = new GenericList<TodoItem>(1);
+            var t1 = new TodoItem("1");
+            var t2 = new TodoItem("2");
+            list.Add(t1);
+            list.Add(t2);
+            var repo2 = new TodoRepository(list);
+            Assert.IsNotNull(repo2.GetAll());
+            Assert.AreEqual(repo2.GetAll().Count, 2);
+        }
+
+        [TestMethod]
         public void GetTest()
         {
             var repo = new TodoRepository(null);
             var t1 = new TodoItem("1");
-            Assert.AreEqual(repo.Get(t1.Id), null);
+            Assert.IsNull(repo.Get(t1.Id));
             repo.Add(t1);
             Assert.AreEqual(repo.Get(t1.Id), t1);
             repo.Remove(t1.Id);
-            Assert.AreEqual(repo.Get(t1.Id), null);
+            Assert.IsNull(repo.Get(t1.Id));
         }
 
         [TestMethod]
@@ -55,9 +73,9 @@ namespace Zadatak2.Tests
             repo.Add(t4);
             repo.Add(t5);
 
-            Assert.AreEqual(repo.Remove(t2.Id), true);
+            Assert.IsTrue(repo.Remove(t2.Id));
             Assert.AreEqual(repo.GetAll().Count, 4);
-            Assert.AreEqual(repo.Remove(t2.Id), false);
+            Assert.IsFalse(repo.Remove(t2.Id));
         }
 
         [TestMethod]
@@ -77,9 +95,9 @@ namespace Zadatak2.Tests
             var repo = new TodoRepository(null);
             var t1 = new TodoItem("1");
             repo.Add(t1);
-            Assert.AreEqual(repo.MarkAsCompleted(t1.Id), true);
-            Assert.AreEqual(repo.MarkAsCompleted(t1.Id), false);
-            Assert.AreEqual(t1.IsCompleted, true);
+            Assert.IsTrue(repo.MarkAsCompleted(t1.Id));
+            Assert.IsFalse(repo.MarkAsCompleted(t1.Id));
+            Assert.IsTrue(t1.IsCompleted);
         }
 
         [TestMethod]
